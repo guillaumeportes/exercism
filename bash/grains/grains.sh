@@ -7,19 +7,19 @@ set -o nounset
 square()
 {
     ( (($1 < 1)) || (($1 > 64)) ) && echo "Error: invalid input" && exit 1
-    echo "2^($1-1)" | bc
+    printf "%u\\n" $((2**($1-1)))
 }
 
 # First implementation was using the above square function, which was very slow.
 # For performance we actually send the whole operation as a string to bc
 total()
 {
-    result="0"
+    result=0
     for i in $(seq 1 64);
     do
-        result+="+2^($i-1)"
+        result=$((result + $(square i)))
     done
-    echo "$result" | bc
+    printf "%u\\n" "$result"
 }
 
 if [ "$1" = "total" ]
