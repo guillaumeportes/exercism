@@ -17,7 +17,7 @@ total()
     result=0
     for i in $(seq 1 64);
     do
-        result=$((result + $(square i)))
+        result=$((result + $(square "$i")))
     done
     printf "%u\\n" "$result"
 }
